@@ -28,7 +28,7 @@
 
 ### Page Accueil
 
-Résumant les contenus
+- Résumant les contenus
 
 ### Unité d'enseignements (U.E)
 
@@ -59,4 +59,4 @@ Résumant les contenus
 
 ### Contact
 
-- permet aux étudiants 'envoyer une recommandation ou message aux administrateur d'études
+- permet aux étudiants d'envoyer une recommandation ou message aux administrateur d'études
