@@ -4,7 +4,7 @@
 
 [ ]  Identifiant_Module  
 [ ]  Libelle_Module  
-[ ]  ...*categoriser*_par Categories_Module  
+[ ]  ...*categoriser* par Categories_Module  
 [ ]  Photo_correspondant  
 
 ## Categories_Module
@@ -14,26 +14,23 @@
 [ ]  ...*categoriser* Modules  
 [ ]  Photo_correspondant
 
-## Professeurs
+## Comptes
 
-[ ]  Identifiant_Prof  
-[ ]  Etat-Civil_Prof  
-  [ ]  Nom  
-  [ ]  Prenom  
-[ ]  Module(s)_enseignés  
-[ ]  ...*enseigner* pendant Cours  
-[ ]  ...*créer* Posts *concernant* Modules  
-[ ]  Photo_corresponant
-
-## Etudiants
-
-[ ]  Identifiant_Etudiant  
-[ ]  Etat-Civil_Etudiant  
-  [ ]  Nom  
-  [ ]  Prenom  
-[ ]  ...*assister* à Cours  
-[ ]  ...*appartenir* à Discussions  
-[ ]  Photo_correspondant
+[x]  Identifiant_Compte
+[ ]  Photo_correspondant  
+[ ]  Etat-Civil_Compte  
+    [ ]  Nom  
+    [ ]  Prenom
+[ ]  Types_comptes  
+    Professeurs  
+        [ ]  Module(s)_enseignés  
+        [ ]  ...*enseigner* pendant Cours  
+        [ ]  ...*créer* Posts *concernant* Modules
+    Etudiants
+        [ ]  ...*assister* à Cours  
+        [ ]  ...*appartenir* à Discussions *suite* à posts
+    Administrateurs
+        [ ]  ...
 
 ## Cours
 
