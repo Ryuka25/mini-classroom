@@ -132,6 +132,18 @@ CREATE TABLE `Comments` (
 );
 
 # ---------------------------------------------------------------------- #
+# Add table "Discussions"                                                      #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE `Discussions` (
+    `discussionId` INTEGER NOT NULL AUTO_INCREMENT,
+    `creationDateTime` DATE AUTO_INCREMENT
+    `name` VARCHAR(50) NOT NULL,
+    `createdByStudent` VARCHAR(25) NOT NULL,
+    CONSTRAINT `PK_discussions` PRIMARY KEY (`discussionId`)
+);
+
+# ---------------------------------------------------------------------- #
 # Foreign key constraints                                                #
 # ---------------------------------------------------------------------- #
 
