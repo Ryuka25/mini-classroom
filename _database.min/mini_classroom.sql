@@ -37,8 +37,29 @@ CREATE TABLE `ModuleCategories` (
 );
 
 # ---------------------------------------------------------------------- #
+# Add table "Accounts"                                                   #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE `Accounts` (
+    `accountId` VARCHAR(50) NOT NULL,
+    `password` VARCHAR(50) NOT NULL,
+    `type` VARCHAR(50) NOT NULL,
+    `adminAccess` INTEGER NOT NULL,
+    `firstName` VARCHAR(50),
+    `lastName` VARCHAR(50),
+    `address` VARCHAR(50),
+    `phoneNumber` VARCHAR(25),
+    `pictures` LONGBLOB NOT NULL,
+    `associedSchoolClass` VARCHAR(25),
+    CONSTRAINT `PK_accounts` PRIMARY KEY (`accountId`),
+);
+
+# ---------------------------------------------------------------------- #
 # Foreign key constraints                                                #
 # ---------------------------------------------------------------------- #
 
 ALTER TABLE `Modules` ADD CONSTRAINT `FK_modules_moduleCategories`
     FOREIGN KEY (`moduleCategoryCode`) REFERENCES `ModuleCategories`(`moduleCategoryCode`);
+
+ALTER TABLE `Accounts` ADD CONSTRAINT `FK_accounts_schoolClass`
+    FOREIGN KEY (`associedSchoolClass`) REFERENCES `SchoolClass`(`classLevel`);
