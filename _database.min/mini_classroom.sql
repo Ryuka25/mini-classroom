@@ -66,6 +66,15 @@ CREATE TABLE `TeachersModules` (
 );
 
 # ---------------------------------------------------------------------- #
+# Add table "SchoolClass"                                                #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE `SchoolClass` {
+    `classLevel` VARCHAR(25) NOT NULL,
+    CONSTRAINT `PK_schoolClass` PRIMARY KEY (`classLevel`)
+};
+
+# ---------------------------------------------------------------------- #
 # Foreign key constraints                                                #
 # ---------------------------------------------------------------------- #
 
