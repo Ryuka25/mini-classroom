@@ -118,6 +118,20 @@ CREATE TABLE `Posts` (
 );
 
 # ---------------------------------------------------------------------- #
+# Add table "Comments"                                                      #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE `Comments` (
+    `commentId` INTEGER NOT NULL AUTO_INCREMENT,
+    `creationDateTime` DATETIME NOT NULL,
+    `legend` TINYTEXT,
+    `attachedFile` LONGBLOB,
+    `createdByAccount` VARCHAR(25) NOT NULL,
+    `concernedPost` INTEGER,
+    CONSTRAINT `PK_comments` PRIMARY KEY (`commentId`)
+);
+
+# ---------------------------------------------------------------------- #
 # Foreign key constraints                                                #
 # ---------------------------------------------------------------------- #
 
@@ -153,3 +167,9 @@ ALTER TABLE `Posts` ADD CONSTRAINT `FK_posts_accounts`
 
 ALTER TABLE `Posts` ADD CONSTRAINT `FK_posts_modules`
     FOREIGN KEY (`concernedModule`) REFERENCES `Modules`(`moduleId`);
+
+ALTER TABLE `Comments` ADD CONSTRAINT `FK_comments_accounts`
+    FOREIGN KEY (`createdByAccount`) REFERENCES `Accounts`(`accountId`);
+
+ALTER TABLE `Comments` ADD CONSTRAINT `FK_comments_posts`
+    FOREIGN KEY (`concernedPost`) REFERENCES `Posts`(`postId`);
