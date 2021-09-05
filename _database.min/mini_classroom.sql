@@ -26,6 +26,17 @@ CREATE TABLE `Modules` (
 );
 
 # ---------------------------------------------------------------------- #
+# Add table "ModuleCategories"                                           #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE `ModuleCategories` (
+    `moduleCategoryCode` VARCHAR(25) NOT NULL,
+    `name` VARCHAR(50) NOT NULL,
+    `picture` LONGBLOB NOT NULL,
+    CONSTRAINT `PK_moduleCategories` PRIMARY KEY (`moduleCategoryCode`)
+);
+
+# ---------------------------------------------------------------------- #
 # Foreign key constraints                                                #
 # ---------------------------------------------------------------------- #
 
