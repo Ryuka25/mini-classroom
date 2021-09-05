@@ -22,7 +22,7 @@ CREATE TABLE `Modules` (
     `description` MEDIUMTEXT,
     `picture` LONGBLOB NOT NULL,
     `categoryCode` VARCHAR(25) NOT NULL,
-    CONSTRAINT `PK_modules` PRIMARY KEY (`moduleId`),
+    CONSTRAINT `PK_modules` PRIMARY KEY (`moduleId`)
 );
 
 # ---------------------------------------------------------------------- #
@@ -51,7 +51,7 @@ CREATE TABLE `Accounts` (
     `phoneNumber` VARCHAR(25),
     `pictures` LONGBLOB NOT NULL,
     `associedSchoolClass` VARCHAR(25),
-    CONSTRAINT `PK_accounts` PRIMARY KEY (`accountId`),
+    CONSTRAINT `PK_accounts` PRIMARY KEY (`accountId`)
 );
 
 # ---------------------------------------------------------------------- #
@@ -60,19 +60,17 @@ CREATE TABLE `Accounts` (
 
 CREATE TABLE `TeachersModules` (
     `teacherId` VARCHAR(50) NOT NULL,
-    `teachedModuleId` VARCHAR(25) NOT NULL,
-    CONSTRAINT `PK_0_teachersModules` PRIMARY KEY (`teacherId`),
-    CONSTRAINT `PK_1_teachersModules` PRIMARY KEY (`teachedModuleId`),
+    `teachedModuleId` VARCHAR(25) NOT NULL
 );
 
 # ---------------------------------------------------------------------- #
 # Add table "SchoolClass"                                                #
 # ---------------------------------------------------------------------- #
 
-CREATE TABLE `SchoolClass` {
+CREATE TABLE `SchoolClass` (
     `classLevel` VARCHAR(25) NOT NULL,
     CONSTRAINT `PK_schoolClass` PRIMARY KEY (`classLevel`)
-};
+);
 
 # ---------------------------------------------------------------------- #
 # Add table "StudentsClass"                                              #
@@ -80,9 +78,7 @@ CREATE TABLE `SchoolClass` {
 
 CREATE TABLE `StudentsClass` (
     `studentId` VARCHAR(50) NOT NULL,
-    `studentClassLevel` VARCHAR(25) NOT NULL,
-    CONSTRAINT `PK_0_studentsClass` PRIMARY KEY (`studentId`),
-    CONSTRAINT `PK_1_studentsClass` PRIMARY KEY (`studentClassLevel`)
+    `studentClassLevel` VARCHAR(25) NOT NULL
 );
 
 # ---------------------------------------------------------------------- #
@@ -109,7 +105,7 @@ CREATE TABLE `Posts` (
     `postId` INTEGER NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(25) NOT NULL,
     `publicationDateTime` DATETIME NOT NULL,
-    `category` VARCHAR NOT NULL,
+    `category` VARCHAR(25) NOT NULL,
     `deadline` DATETIME,
     `legend` LONGTEXT,
     `concernedModule` VARCHAR(25) NOT NULL,
@@ -118,7 +114,7 @@ CREATE TABLE `Posts` (
 );
 
 # ---------------------------------------------------------------------- #
-# Add table "Comments"                                                      #
+# Add table "Comments"                                                   #
 # ---------------------------------------------------------------------- #
 
 CREATE TABLE `Comments` (
@@ -132,19 +128,19 @@ CREATE TABLE `Comments` (
 );
 
 # ---------------------------------------------------------------------- #
-# Add table "Discussions"                                                      #
+# Add table "Discussions"                                                #
 # ---------------------------------------------------------------------- #
 
 CREATE TABLE `Discussions` (
     `discussionId` INTEGER NOT NULL AUTO_INCREMENT,
-    `creationDateTime` DATE AUTO_INCREMENT
+    `creationDateTime` DATE,
     `name` VARCHAR(50) NOT NULL,
     `createdByStudent` VARCHAR(25) NOT NULL,
     CONSTRAINT `PK_discussions` PRIMARY KEY (`discussionId`)
 );
 
 # ---------------------------------------------------------------------- #
-# Add table "Messages"                                                      #
+# Add table "Messages"                                                   #
 # ---------------------------------------------------------------------- #
 
 CREATE TABLE `Messages` (
@@ -158,14 +154,12 @@ CREATE TABLE `Messages` (
 );
 
 # ---------------------------------------------------------------------- #
-# Add table "DiscussionsMembers"                                                      #
+# Add table "DiscussionsMembers"                                         #
 # ---------------------------------------------------------------------- #
 
 CREATE TABLE `DiscussionsMembers` (
     `concernedDiscussion` INTEGER NOT NULL,
-    `studentMember` VARCHAR(25) NOT NULL,
-    CONSTRAINT `PK_0_discussionsMembers` PRIMARY KEY (`concernedDiscussion`),
-    CONSTRAINT `PK_1_discussionsMembers` PRIMARY KEY (`studentMember`)
+    `studentMember` VARCHAR(25) NOT NULL
 );
 
 # ---------------------------------------------------------------------- #
@@ -173,7 +167,7 @@ CREATE TABLE `DiscussionsMembers` (
 # ---------------------------------------------------------------------- #
 
 ALTER TABLE `Modules` ADD CONSTRAINT `FK_modules_moduleCategories`
-    FOREIGN KEY (`moduleCategoryCode`) REFERENCES `ModuleCategories`(`moduleCategoryCode`);
+    FOREIGN KEY (`categoryCode`) REFERENCES `ModuleCategories`(`moduleCategoryCode`);
 
 ALTER TABLE `Accounts` ADD CONSTRAINT `FK_accounts_schoolClass`
     FOREIGN KEY (`associedSchoolClass`) REFERENCES `SchoolClass`(`classLevel`);
