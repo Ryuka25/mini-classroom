@@ -158,6 +158,17 @@ CREATE TABLE `Messages` (
 );
 
 # ---------------------------------------------------------------------- #
+# Add table "DiscussionsMembers"                                                      #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE `DiscussionsMembers` (
+    `concernedDiscussion` INTEGER NOT NULL,
+    `studentMember` VARCHAR(25) NOT NULL,
+    CONSTRAINT `PK_0_discussionsMembers` PRIMARY KEY (`concernedDiscussion`),
+    CONSTRAINT `PK_1_discussionsMembers` PRIMARY KEY (`studentMember`)
+);
+
+# ---------------------------------------------------------------------- #
 # Foreign key constraints                                                #
 # ---------------------------------------------------------------------- #
 
@@ -205,3 +216,9 @@ ALTER TABLE `Messages` ADD CONSTRAINT `FK_messages_accounts`
 
 ALTER TABLE `Messages` ADD CONSTRAINT `FK_messages_discussions`
     FOREIGN KEY (`attachedDiscussion`) REFERENCES `Discussions`(`discussionId`);
+
+ALTER TABLE `DiscussionsMembers` ADD CONSTRAINT `FK_discussionsMembers_discussions`
+    FOREIGN KEY (`concernedDiscussion`) REFERENCES `Discussions`(`discussionId`);
+
+ALTER TABLE `DiscussionsMembers` ADD CONSTRAINT `FK_discussionMembers_accounts`
+    FOREIGN KEY (`studentMember`) REFERENCES `Accounts`(`accountId`);
