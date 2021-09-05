@@ -86,6 +86,22 @@ CREATE TABLE `StudentsClass` (
 );
 
 # ---------------------------------------------------------------------- #
+# Add table "Shedules"                                                   #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE `Shedules` (
+    `sheduleId` INTEGER NOT NULL AUTO_INCREMENT,
+    `date` DATE NOT NULL,
+    `beginTime` TIME NOT NULL,
+    `endTime` TIME NOT NULL,
+    `schoolRoom` VARCHAR(25) NOT NULL,
+    `concernedTeacher` VARCHAR(25) NOT NULL,
+    `concernedClass` VARCHAR(25) NOT NULL,
+    `concernedModule` VARCHAR(25) NOT NULL,
+    CONSTRAINT `PK_shedules` PRIMARY KEY (`sheduleId`)
+);
+
+# ---------------------------------------------------------------------- #
 # Foreign key constraints                                                #
 # ---------------------------------------------------------------------- #
 
@@ -106,3 +122,12 @@ ALTER TABLE `StudentsClass` ADD CONSTRAINT `FK_studentsClass_accounts`
 
 ALTER TABLE `StudentsClass` ADD CONSTRAINT `FK_studentsClass_schoolClass`
     FOREIGN KEY (`studentClassLevel`) REFERENCES `SchoolClass`(`classLevel`);
+
+ALTER TABLE `Shedules` ADD CONSTRAINT `FK_shedules_accounts` 
+    FOREIGN KEY (`concernedTeacher`) REFERENCES `Accounts`(`accountId`);
+
+ALTER TABLE `Shedules` ADD CONSTRAINT `FK_shedules_schoolClass`
+    FOREIGN KEY (`concernedClass`) REFERENCES `SchoolClass`(`classLevel`);
+
+ALTER TABLE `Shedules` ADD CONSTRAINT `FK_shedules_modules`
+    FOREIGN KEY (`concernedModule`) REFERENCES `Modules`(`moduleId`);
