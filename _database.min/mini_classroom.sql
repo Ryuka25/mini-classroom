@@ -144,6 +144,20 @@ CREATE TABLE `Discussions` (
 );
 
 # ---------------------------------------------------------------------- #
+# Add table "Messages"                                                      #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE `Messages` (
+    `messageId` INTEGER NOT NULL AUTO_INCREMENT,
+    `sendDateTime` DATETIME NOT NULL,
+    `legend` TINYTEXT,
+    `attachedFile` LONGBLOB,
+    `sendByStudent` VARCHAR(25) NOT NULL,
+    `attachedDiscussion` INTEGER NOT NULL,
+    CONSTRAINT `PK_messages` PRIMARY KEY (`messageId`)
+);
+
+# ---------------------------------------------------------------------- #
 # Foreign key constraints                                                #
 # ---------------------------------------------------------------------- #
 
@@ -185,3 +199,9 @@ ALTER TABLE `Comments` ADD CONSTRAINT `FK_comments_accounts`
 
 ALTER TABLE `Comments` ADD CONSTRAINT `FK_comments_posts`
     FOREIGN KEY (`concernedPost`) REFERENCES `Posts`(`postId`);
+
+ALTER TABLE `Messages` ADD CONSTRAINT `FK_messages_accounts`
+    FOREIGN KEY (`sendByStudent`) REFERENCES `Accounts`(`accountId`);
+
+ALTER TABLE `Messages` ADD CONSTRAINT `FK_messages_discussions`
+    FOREIGN KEY (`attachedDiscussion`) REFERENCES `Discussions`(`discussionId`);
