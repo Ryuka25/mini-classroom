@@ -102,6 +102,22 @@ CREATE TABLE `Shedules` (
 );
 
 # ---------------------------------------------------------------------- #
+# Add table "Posts"                                                      #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE `Posts` (
+    `postId` INTEGER NOT NULL AUTO_INCREMENT,
+    `title` VARCHAR(25) NOT NULL,
+    `publicationDateTime` DATETIME NOT NULL,
+    `category` VARCHAR NOT NULL,
+    `deadline` DATETIME,
+    `legend` LONGTEXT,
+    `concernedModule` VARCHAR(25) NOT NULL,
+    `createdByTeacher` VARCHAR(25) NOT NULL,
+    CONSTRAINT `PK_posts` PRIMARY KEY (`postId`)
+);
+
+# ---------------------------------------------------------------------- #
 # Foreign key constraints                                                #
 # ---------------------------------------------------------------------- #
 
@@ -130,4 +146,10 @@ ALTER TABLE `Shedules` ADD CONSTRAINT `FK_shedules_schoolClass`
     FOREIGN KEY (`concernedClass`) REFERENCES `SchoolClass`(`classLevel`);
 
 ALTER TABLE `Shedules` ADD CONSTRAINT `FK_shedules_modules`
+    FOREIGN KEY (`concernedModule`) REFERENCES `Modules`(`moduleId`);
+
+ALTER TABLE `Posts` ADD CONSTRAINT `FK_posts_accounts`
+    FOREIGN KEY (`createdByTeacher`) REFERENCES `Accounts`(`accountId`);
+
+ALTER TABLE `Posts` ADD CONSTRAINT `FK_posts_modules`
     FOREIGN KEY (`concernedModule`) REFERENCES `Modules`(`moduleId`);
