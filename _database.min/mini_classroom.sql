@@ -55,6 +55,17 @@ CREATE TABLE `Accounts` (
 );
 
 # ---------------------------------------------------------------------- #
+# Add table "TeachersModules"                                            #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE `TeachersModules` (
+    `teacherId` VARCHAR(50) NOT NULL,
+    `teachedModuleId` VARCHAR(25) NOT NULL,
+    CONSTRAINT `PK_0_teachersModules` PRIMARY KEY (`teacherId`),
+    CONSTRAINT `PK_1_teachersModules` PRIMARY KEY (`teachedModuleId`),
+);
+
+# ---------------------------------------------------------------------- #
 # Foreign key constraints                                                #
 # ---------------------------------------------------------------------- #
 
@@ -63,3 +74,9 @@ ALTER TABLE `Modules` ADD CONSTRAINT `FK_modules_moduleCategories`
 
 ALTER TABLE `Accounts` ADD CONSTRAINT `FK_accounts_schoolClass`
     FOREIGN KEY (`associedSchoolClass`) REFERENCES `SchoolClass`(`classLevel`);
+
+ALTER TABLE `TeachersModules` ADD CONSTRAINT `FK_teachersModules_accounts`
+    FOREIGN KEY (`teacherId`) REFERENCES `Accounts`(`accountId`);
+    
+ALTER TABLE `TeachersModules` ADD CONSTRAINT `FK_teachersModules_modules`
+    FOREIGN KEY (`teachedModuleId`) REFERENCES `Modules`(`moduleId`);
