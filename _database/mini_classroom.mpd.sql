@@ -13,10 +13,10 @@ USE mini_classroom;
 # Tables                                                                 #
 # ---------------------------------------------------------------------- #
 # ---------------------------------------------------------------------- #
-# Add table "Modules"                                                    #
+# Add table "modules"                                                    #
 # ---------------------------------------------------------------------- #
 
-CREATE TABLE `Modules` (
+CREATE TABLE `modules` (
     `moduleID` VARCHAR(25) NOT NULL,
     `name` VARCHAR(50) NOT NULL,
     `description` MEDIUMTEXT,
@@ -26,10 +26,10 @@ CREATE TABLE `Modules` (
 );
 
 # ---------------------------------------------------------------------- #
-# Add table "ModuleCategories"                                           #
+# Add table "moduleCategories"                                           #
 # ---------------------------------------------------------------------- #
 
-CREATE TABLE `ModuleCategories` (
+CREATE TABLE `moduleCategories` (
     `moduleCategoryCode` VARCHAR(25) NOT NULL,
     `name` VARCHAR(50) NOT NULL,
     `picture` LONGBLOB NOT NULL,
@@ -37,10 +37,10 @@ CREATE TABLE `ModuleCategories` (
 );
 
 # ---------------------------------------------------------------------- #
-# Add table "Accounts"                                                   #
+# Add table "accounts"                                                   #
 # ---------------------------------------------------------------------- #
 
-CREATE TABLE `Accounts` (
+CREATE TABLE `accounts` (
     `accountID` VARCHAR(50) NOT NULL,
     `password` VARCHAR(50) NOT NULL,
     `type` INTEGER NOT NULL,
@@ -55,31 +55,31 @@ CREATE TABLE `Accounts` (
 );
 
 # ---------------------------------------------------------------------- #
-# Add table "TeachersModules"                                            #
+# Add table "teacher_module"                                            #
 # ---------------------------------------------------------------------- #
 
-CREATE TABLE `TeachersModules` (
+CREATE TABLE `teacher_module` (
     `teacherID` VARCHAR(50) NOT NULL,
     `teachedModuleID` VARCHAR(25) NOT NULL
 );
 
 # ---------------------------------------------------------------------- #
-# Add table "SchoolClass"                                                #
+# Add table "schoolClass"                                                #
 # ---------------------------------------------------------------------- #
 
-CREATE TABLE `SchoolClass` (
+CREATE TABLE `schoolClass` (
     `classLevel` VARCHAR(25) NOT NULL,
     CONSTRAINT `PK_schoolClass` PRIMARY KEY (`classLevel`)
 );
 
 
 # ---------------------------------------------------------------------- #
-# Add table "Shedules"                                                   #
+# Add table "schedules"                                                   #
 # ---------------------------------------------------------------------- #
 
-CREATE TABLE `Shedules` (
+CREATE TABLE `schedules` (
     `sheduleID` INTEGER NOT NULL AUTO_INCREMENT,
-    `date` DATE NOT NULL,
+    `sheduleDate` DATE NOT NULL,
     `beginTime` TIME NOT NULL,
     `endTime` TIME NOT NULL,
     `schoolRoom` VARCHAR(25) NOT NULL,
@@ -90,10 +90,10 @@ CREATE TABLE `Shedules` (
 );
 
 # ---------------------------------------------------------------------- #
-# Add table "Posts"                                                      #
+# Add table "posts"                                                      #
 # ---------------------------------------------------------------------- #
 
-CREATE TABLE `Posts` (
+CREATE TABLE `posts` (
     `postID` INTEGER NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(25) NOT NULL,
     `publicationDateTime` DATETIME NOT NULL,
@@ -106,10 +106,10 @@ CREATE TABLE `Posts` (
 );
 
 # ---------------------------------------------------------------------- #
-# Add table "Comments"                                                   #
+# Add table "comments"                                                   #
 # ---------------------------------------------------------------------- #
 
-CREATE TABLE `Comments` (
+CREATE TABLE `comments` (
     `commentID` INTEGER NOT NULL AUTO_INCREMENT,
     `creationDateTime` DATETIME NOT NULL,
     `legend` TINYTEXT,
@@ -120,10 +120,10 @@ CREATE TABLE `Comments` (
 );
 
 # ---------------------------------------------------------------------- #
-# Add table "Discussions"                                                #
+# Add table "discussions"                                                #
 # ---------------------------------------------------------------------- #
 
-CREATE TABLE `Discussions` (
+CREATE TABLE `discussions` (
     `discussionID` INTEGER NOT NULL AUTO_INCREMENT,
     `creationDateTime` DATE,
     `name` VARCHAR(50) NOT NULL,
@@ -132,10 +132,10 @@ CREATE TABLE `Discussions` (
 );
 
 # ---------------------------------------------------------------------- #
-# Add table "Messages"                                                   #
+# Add table "messages"                                                   #
 # ---------------------------------------------------------------------- #
 
-CREATE TABLE `Messages` (
+CREATE TABLE `messages` (
     `messageID` INTEGER NOT NULL AUTO_INCREMENT,
     `sendDateTime` DATETIME NOT NULL,
     `legend` TINYTEXT,
@@ -146,10 +146,10 @@ CREATE TABLE `Messages` (
 );
 
 # ---------------------------------------------------------------------- #
-# Add table "DiscussionsMembers"                                         #
+# Add table "discussion_member"                                         #
 # ---------------------------------------------------------------------- #
 
-CREATE TABLE `DiscussionsMembers` (
+CREATE TABLE `discussion_member` (
     `concernedDiscussion` INTEGER NOT NULL,
     `studentMember` VARCHAR(25) NOT NULL
 );
@@ -158,46 +158,46 @@ CREATE TABLE `DiscussionsMembers` (
 # Foreign key constraints                                                #
 # ---------------------------------------------------------------------- #
 
-ALTER TABLE `Modules` ADD CONSTRAINT `FK_modules_moduleCategories`
-    FOREIGN KEY (`categoryCode`) REFERENCES `ModuleCategories`(`moduleCategoryCode`);
-ALTER TABLE `Accounts` ADD CONSTRAINT `FK_accounts_schoolClass`
-    FOREIGN KEY (`associedSchoolClass`) REFERENCES `SchoolClass`(`classLevel`);
+ALTER TABLE `modules` ADD CONSTRAINT `FK_modules_moduleCategories`
+    FOREIGN KEY (`categoryCode`) REFERENCES `moduleCategories`(`moduleCategoryCode`);
+ALTER TABLE `accounts` ADD CONSTRAINT `FK_accounts_schoolClass`
+    FOREIGN KEY (`associedSchoolClass`) REFERENCES `schoolClass`(`classLevel`);
 
-ALTER TABLE `TeachersModules` ADD CONSTRAINT `FK_teachersModules_accounts`
-    FOREIGN KEY (`teacherID`) REFERENCES `Accounts`(`accountID`);
+ALTER TABLE `teacher_module` ADD CONSTRAINT `FK_teacher_module_accounts`
+    FOREIGN KEY (`teacherID`) REFERENCES `accounts`(`accountID`);
     
-ALTER TABLE `TeachersModules` ADD CONSTRAINT `FK_teachersModules_modules`
-    FOREIGN KEY (`teachedModuleID`) REFERENCES `Modules`(`moduleID`);
+ALTER TABLE `teacher_module` ADD CONSTRAINT `FK_teacher_module_modules`
+    FOREIGN KEY (`teachedModuleID`) REFERENCES `modules`(`moduleID`);
 
-ALTER TABLE `Shedules` ADD CONSTRAINT `FK_shedules_accounts` 
-    FOREIGN KEY (`concernedTeacher`) REFERENCES `Accounts`(`accountID`);
+ALTER TABLE `schedules` ADD CONSTRAINT `FK_shedules_accounts` 
+    FOREIGN KEY (`concernedTeacher`) REFERENCES `accounts`(`accountID`);
 
-ALTER TABLE `Shedules` ADD CONSTRAINT `FK_shedules_schoolClass`
-    FOREIGN KEY (`concernedClass`) REFERENCES `SchoolClass`(`classLevel`);
+ALTER TABLE `schedules` ADD CONSTRAINT `FK_shedules_schoolClass`
+    FOREIGN KEY (`concernedClass`) REFERENCES `schoolClass`(`classLevel`);
 
-ALTER TABLE `Shedules` ADD CONSTRAINT `FK_shedules_modules`
-    FOREIGN KEY (`concernedModule`) REFERENCES `Modules`(`moduleID`);
+ALTER TABLE `schedules` ADD CONSTRAINT `FK_shedules_modules`
+    FOREIGN KEY (`concernedModule`) REFERENCES `modules`(`moduleID`);
 
-ALTER TABLE `Posts` ADD CONSTRAINT `FK_posts_accounts`
-    FOREIGN KEY (`createdByTeacher`) REFERENCES `Accounts`(`accountID`);
+ALTER TABLE `posts` ADD CONSTRAINT `FK_posts_accounts`
+    FOREIGN KEY (`createdByTeacher`) REFERENCES `accounts`(`accountID`);
 
-ALTER TABLE `Posts` ADD CONSTRAINT `FK_posts_modules`
-    FOREIGN KEY (`concernedModule`) REFERENCES `Modules`(`moduleID`);
+ALTER TABLE `posts` ADD CONSTRAINT `FK_posts_modules`
+    FOREIGN KEY (`concernedModule`) REFERENCES `modules`(`moduleID`);
 
-ALTER TABLE `Comments` ADD CONSTRAINT `FK_comments_accounts`
-    FOREIGN KEY (`createdByAccount`) REFERENCES `Accounts`(`accountID`);
+ALTER TABLE `comments` ADD CONSTRAINT `FK_comments_accounts`
+    FOREIGN KEY (`createdByAccount`) REFERENCES `accounts`(`accountID`);
 
-ALTER TABLE `Comments` ADD CONSTRAINT `FK_comments_posts`
-    FOREIGN KEY (`concernedPost`) REFERENCES `Posts`(`postID`);
+ALTER TABLE `comments` ADD CONSTRAINT `FK_comments_posts`
+    FOREIGN KEY (`concernedPost`) REFERENCES `posts`(`postID`);
 
-ALTER TABLE `Messages` ADD CONSTRAINT `FK_messages_accounts`
-    FOREIGN KEY (`sendByStudent`) REFERENCES `Accounts`(`accountID`);
+ALTER TABLE `messages` ADD CONSTRAINT `FK_messages_accounts`
+    FOREIGN KEY (`sendByStudent`) REFERENCES `accounts`(`accountID`);
 
-ALTER TABLE `Messages` ADD CONSTRAINT `FK_messages_discussions`
-    FOREIGN KEY (`attachedDiscussion`) REFERENCES `Discussions`(`discussionID`);
+ALTER TABLE `messages` ADD CONSTRAINT `FK_messages_discussions`
+    FOREIGN KEY (`attachedDiscussion`) REFERENCES `discussions`(`discussionID`);
 
-ALTER TABLE `DiscussionsMembers` ADD CONSTRAINT `FK_discussionsMembers_discussions`
-    FOREIGN KEY (`concernedDiscussion`) REFERENCES `Discussions`(`discussionID`);
+ALTER TABLE `discussion_member` ADD CONSTRAINT `FK_discussion_member_discussions`
+    FOREIGN KEY (`concernedDiscussion`) REFERENCES `discussions`(`discussionID`);
 
-ALTER TABLE `DiscussionsMembers` ADD CONSTRAINT `FK_discussionMembers_accounts`
-    FOREIGN KEY (`studentMember`) REFERENCES `Accounts`(`accountID`);
+ALTER TABLE `discussion_member` ADD CONSTRAINT `FK_discussionMembers_accounts`
+    FOREIGN KEY (`studentMember`) REFERENCES `accounts`(`accountID`);
