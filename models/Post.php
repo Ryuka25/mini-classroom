@@ -13,7 +13,7 @@ class Post extends Model {
     private $accountID;
 
     
-   /**
+    /**
     * SETTERS for all keys
     */
     public function set($key, $value) {

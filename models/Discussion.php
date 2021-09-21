@@ -25,6 +25,5 @@ class Discussion extends Model {
     public function get($key) {
         return $this->$key;
     }
-    
 
 }
