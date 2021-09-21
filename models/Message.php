@@ -10,7 +10,7 @@ class Message extends Model {
     private $sendByStudent;
     private $sendDateTime;
 
-    
+
     /**
     * SETTERS for all keys
     */
@@ -27,4 +27,5 @@ class Message extends Model {
     public function get($key) {
         return $this->$key;
     }
+    
 }
