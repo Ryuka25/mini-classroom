@@ -23,4 +23,8 @@ class SchoolClass extends Model{
         return $this->$key;
     }
 
+    public function getClassLevel() {
+        return $this->classLevel;
+    }
+
 }
