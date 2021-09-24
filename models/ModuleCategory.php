@@ -24,4 +24,12 @@ class ModuleCategory extends Model {
     public function get($key) {
         return $this->$key;
     }
+
+    public function getModuleCategoryCode() {
+        return $this->moduleCategoryCode;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
 }
