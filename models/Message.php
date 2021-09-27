@@ -28,4 +28,11 @@ class Message extends Model {
         return $this->$key;
     }
     
+    public function getSenders() {
+        return $this->sendByStudent;
+    }
+
+    public function getMessage() {
+        return $this->legend;
+    }
 }
