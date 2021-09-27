@@ -26,4 +26,11 @@ class Discussion extends Model {
         return $this->$key;
     }
 
+    public function getName() {
+        return $this->name;
+    }
+
+    public function getDiscussionID() {
+        return $this->discussionID;
+    }
 }
