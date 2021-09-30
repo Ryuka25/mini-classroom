@@ -7,7 +7,7 @@ class Module extends Model {
     private $name;
     private $description;
     private $picture;
-    private $moduleCategoryCode;
+    private $categoryCode;
 
 
     /**
@@ -25,5 +25,16 @@ class Module extends Model {
     */
     public function get($key) {
         return $this->$key;
+    }
+    public function getModuleId() {
+        return $this->moduleID;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function getDescription() {
+        return $this->description;
     }
 }
