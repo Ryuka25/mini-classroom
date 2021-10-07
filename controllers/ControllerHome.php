@@ -1,5 +1,6 @@
 <?php 
 require_once('views/View.php');
+require_once('models/Account.php');
 
 class ControllerHome {
 
@@ -29,7 +30,9 @@ class ControllerHome {
     private function showHomepage() {
 
         $this->_view = new View('Home');
-        $data = array();
+        $data = array(
+            'accountID'=>$_SESSION['accountID'],
+        );
         $this->_view->generate($data);
 
     }

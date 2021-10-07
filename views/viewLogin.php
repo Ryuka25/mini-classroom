@@ -1,15 +1,22 @@
 <div class="container m-5 text-center">
-    <form>
+    <form method="POST" action="<?= SERVER_URL.'?url=login/grantAccess/'?>">
         <div class="form-group row">
-            <label for="name" class="col-sm-4 col-form-label">Username</label>
+            <label for="accountID" class="col-sm-4 col-form-label">Username</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" name="name" id="name" placeholder="*Username">
+                <input type="text" class="form-control" name="accountID" placeholder="*Username" value="<?= $accountID ?>">
+                <div class="alert alert-dager" role="alert">
+                    <strong><?= $accountIDError ?></strong>
+                </div>
+
             </div>
         </div>
         <div class="form-group row">
-            <label for="name" class="col-sm-4 col-form-label">Password</label>
+            <label for="password" class="col-sm-4 col-form-label">Password</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" name="name" id="name" placeholder="*Password">
+                <input type="text" class="form-control" name="password" placeholder="*Password">
+                <div class="alert alert-dager" role="alert">
+                    <strong><?= $passwordError ?></strong>
+                </div>
             </div>
         </div>
         <div class="form-group row">

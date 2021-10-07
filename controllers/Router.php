@@ -1,4 +1,5 @@
-<?php 
+<?php
+session_start(); 
 require_once('views/View.php');
 
 class Router {
@@ -26,6 +27,19 @@ class Router {
 
                 require_once($classURL);
             });
+
+                // // Handle the controller file in the request
+                // $controller = 'Login';
+                // $controllerClass = 'Controller'.$controller;
+                // $controllerFile = 'controllers/'.$controllerClass.'.php';
+
+                // require_once($controllerFile);
+
+                // $url = '?url=login/';
+                // $url = explode('/', filter_var($url, FILTER_SANITIZE_URL));
+
+                // // Action corresponding to the controller will be send to the constructor
+                // $this->_ctrl = new $controllerClass($url);
 
             // Make sure that our URL is a URL (Mety hoe tsy azo fa ze fazahonareo azy)
             if (isset($_GET['url']) || isset($_POST['url'])) {
@@ -57,20 +71,10 @@ class Router {
                 }
 
             } else {
-
-                // Handle the controller file in the request
-                $controller = 'Home';
-                $controllerClass = 'Controller'.$controller;
-                $controllerFile = 'controllers/'.$controllerClass.'.php';
-
-                require_once($controllerFile);
-
-                // Action corresponding to the controller will be send to the constructor
-                $this->_ctrl = new $controllerClass(array());
-
+                $url = SERVER_URL.'?url=home/';
+                header("location:$url");
             }
             
-
         // ! IF AN ERROR OCCURED WHILE TRYING TO HANDLE THE REQUESTED URL
         // ! THE FOLLOWING BLOCK WILL BE EXECUTED
 

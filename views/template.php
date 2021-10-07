@@ -10,12 +10,18 @@
     <title><?= $pageTitle ?> - MINI_CLASSROOM</title>
 </head>
 <body>
-    <nav class="nav justify-content-center">
-        <a class="nav-link" href="<?= SERVER_URL.'?url=Home/'?>">Home</a>
-        <a class="nav-link" href="<?= SERVER_URL.'?url=SchoolClass/'?>">School Class</a>
-        <a class="nav-link" href="<?= SERVER_URL.'?url=Module/'?>">Module</a>
-        <a class="nav-link" href="<?= SERVER_URL.'?url=ModuleCategory/'?>">Module Category</a>
-
+    <nav class="nav justify-content-center mt-2">
+        <?php if (isset($_SESSION['account'])) {?>
+            <a class="btn btn-success" href="<?= SERVER_URL.'?url=login/logout/'?>">Disconnect</a>
+        <?php } else { ?>
+            <a class="btn btn-success" href="<?= SERVER_URL.'?url=login/'?>">Login</a>
+        <?php } ?>
+        <a class="nav-link" href="<?= SERVER_URL.'?url=home/'?>">Home</a>
+        <a class="nav-link" href="<?= SERVER_URL.'?url=schoolClass/'?>">School Class</a>
+        <a class="nav-link" href="<?= SERVER_URL.'?url=module/'?>">Module</a>
+        <a class="nav-link" href="<?= SERVER_URL.'?url=moduleCategory/'?>">Module Category</a>
+        <a class="nav-link" href="<?= SERVER_URL.'?url=test/'?>"> Test </a>
+        <a class="nav-link" href="<?= SERVER_URL.'?url=discussion/'?>"> Discussion </a>
     </nav>
 
     <div class="container">

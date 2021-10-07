@@ -5,7 +5,7 @@
 <?= $changeSuccess ?>
 <div class="container border col-sm-6">
     <h1 class="text-center"> ADD NEW MODULE CATEGORY </h1>
-    <form method="POST" action="<?= SERVER_URL.'?url=ModuleCategory/add/'?>">
+    <form method="POST" action="<?= SERVER_URL.'?url=moduleCategory/add/'?>">
         <div class="form-group row">
             <label for="moduleCategoryCode" class="col-sm-5 col-form-label text-center">Module Category Code : </label>
             <div class="col-sm-7">

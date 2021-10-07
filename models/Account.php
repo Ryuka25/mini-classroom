@@ -32,4 +32,11 @@ class Account extends Model {
         return $this->$key;
     }
 
+    public function getPassword() {
+        return $this->password;
+    }
+
+    public function getAccountID() {
+        return $this->accountID;
+    }
 }

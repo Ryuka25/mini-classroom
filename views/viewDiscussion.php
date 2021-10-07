@@ -22,7 +22,7 @@
                 <form method="POST" action="<?= SERVER_URL.'?url=message/add/'?>">
                     <div class="form-group row">
                         <input type="hidden" name="attachedDiscussion" value="<?= $currentDiscussion->getDiscussionID()?>">
-                        <input type="hidden" name="sendByStudent" value="<?= 'user_1' ?>">
+                        <input type="hidden" name="sendByStudent" value="<?= $accountID ?>">
                         <input class="col-sm-10" type="text" name="legend" placeholder=" Enter message here ...">
                         <button type="submit" class="btn btn-primary col-sm-2">Send</button>
                     </div>

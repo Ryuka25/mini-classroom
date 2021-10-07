@@ -35,6 +35,7 @@ class ControllerDiscussion {
                 throw new Exception("Select a discussion");
             } else {
                 $attachedDiscussion = $url[1];
+                $data['accountID'] = $_SESSION['accountID'];
 
                 $this->_manager = new DiscussionManager;
                 $data['discussionList'] = $this->_manager->getAllDiscussion();
