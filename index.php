@@ -13,7 +13,7 @@
  */
 
 /** Some init for the web app */
-require_once('global/init.php');
+require_once('config/init.php');
 
 // ! ALL THINGS HAPPEN IN THE ROUTER
 
