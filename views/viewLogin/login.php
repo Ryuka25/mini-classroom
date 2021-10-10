@@ -1,5 +1,5 @@
 <div class="container m-5 text-center">
-    <form method="POST" action="<?= SERVER_URL.'?url=login/grantAccess/'?>">
+    <form method="POST" action="<?= SERVER_URL.'?url=login/'?>">
         <div class="form-group row">
             <label for="accountID" class="col-sm-4 col-form-label">Username</label>
             <div class="col-sm-6">
@@ -13,9 +13,9 @@
         <div class="form-group row">
             <label for="password" class="col-sm-4 col-form-label">Password</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" name="password" placeholder="*Password">
-                <div class="alert alert-dager" role="alert">
-                    <strong><?= $passwordError ?></strong>
+                <input type="password" class="form-control" name="password" placeholder="*Password">
+                <div class="alert alert-danger mt-2" role="alert" id="passwordError">
+                    <strong><?=$passwordError?></strong>
                 </div>
             </div>
         </div>
@@ -26,3 +26,5 @@
         </div>
     </form>
 </div>
+
+<script src="<?= SERVER_URL.'views/static/script/loginScript.js' ?>"></script>

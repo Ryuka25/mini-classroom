@@ -2,7 +2,6 @@
 
 class ControllerTest {
 
-    private $_view;
     private $_manager;
 
     public function __construct($url) {
@@ -10,11 +9,20 @@ class ControllerTest {
         $data = array();
 
         if ($url[1] == null) {
-            $this->_view = new View('Test');
+            
+            $view = new View('viewTest/testPage');
+            $view->pageTitle = "Test";
 
-            $data['pageContent'] = $this->_view->generateFile('views/viewTest/testPage.php', []);
+            $navBar = new View("static/topNavBar");
+            $view->topNavBar = $navBar->output();
 
-            $this->_view->generate($data);
+            $foo = new testClass("Humm");
+            $_SESSION['foo'] = serialize($foo);
+
+            $view->render();
+
+            $_SESSION['foo'] = new testClass("Humm");
+            var_dump($_SESSION['foo']);
 
         } elseif ($url[1] == 'try') {
 
@@ -22,11 +30,28 @@ class ControllerTest {
 
         } elseif ($url[1] == 'success') {
 
-            $this->_view = new View('Test');
+            $view = new View('viewTest/successPage');
+            $view->pageTitle = "Test";
+            $view->topNavBar = "";
 
-            $data['pageContent'] = $this->_view->generateFile('views/viewTest/successPage.php', []);
+            /** 
+             * @var testClass $foo
+            */
 
-            $this->_view->generate($data);
-        } 
+            $foo = (unserialize($_SESSION['foo']));
+            $foo->getFoo();
+
+            $view->render();
+        }
+    }
+}
+
+class testClass {
+    private $__foo;
+    public function __construct($foo) {
+        $this->__foo = $foo;
+    }
+    public function getFoo() {
+        return $this->__foo;
     }
 }

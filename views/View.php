@@ -2,53 +2,46 @@
 
 class View {
     
+    public string $topNavBar;
+    public string $pageTitle;
     /** File for the current view */
-    private $_file;
-    /** Handle the view title */
-    private $_pageTitle;
-
-    public function __construct($action) {
-        $this->_file = 'view'.$action.'.php';
-        $this->_pageTitle = strtoupper($action);
+    private string $__file;
+    /** Handle the current view value */
+    private array $__value = array();
+    /**
+     * @param string filename : The name of the view
+     */
+    public function __construct($filePath) {
+        $this->__file = $filePath.'.php';
     }
-
+    /**
+     * Set the value in the file.php
+     */
+    public function setValue($key, $value) {
+        $this->__value[$key] = $value;
+    }
     /**
      * Allow to generate $file with the specified $data
      */
-    public function generateFile($file, $data) {
-
+    public function output() {
         // Extract data to acces them in the require function
-        extract($data);
-
+        extract($this->__value);
         // Begin temporisation
         ob_start();
-
         // Get the corresponding view to the tempo
-        require($file);
-
+        require($this->__file);
         // Return the $file with the specified data filled in
         return ob_get_clean();
-
     }
-
     /**
-     * Allow user to generate the complete webpage 
-     * with the specified data for the current view
+     * Generate the current view
      */
-    public function generate($data) {
+    public function render() {
+        $template = new View("static/template");
+        $template->setValue("content" ,$this->output());
+        $template->setValue("topNavBar",$this->topNavBar);
+        $template->setValue("pageTitle",$this->pageTitle);
 
-        // Generate portion of template view
-        $content = $this->generateFile($this->_file, $data);
-
-        // Generate the complete webpage
-        $view = $this->generateFile('views/template.php', 
-            array(
-                'pageTitle'=>$this->_pageTitle,
-                'content'=>$content
-            )
-        );
-
-        // Just echo the complete webpage
-        echo $view;
+        echo $template->output();
     }
 }

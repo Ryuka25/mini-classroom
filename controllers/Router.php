@@ -6,8 +6,6 @@ class Router {
 
     /** Handle the corresponding controller according to the URL request */
     private $_ctrl;
-    /** Handle the corresponding view according to the URL request */
-    private $_view;
 
     /**
      * This function will hande the url entered by the users
@@ -28,19 +26,6 @@ class Router {
                 require_once($classURL);
             });
 
-                // // Handle the controller file in the request
-                // $controller = 'Login';
-                // $controllerClass = 'Controller'.$controller;
-                // $controllerFile = 'controllers/'.$controllerClass.'.php';
-
-                // require_once($controllerFile);
-
-                // $url = '?url=login/';
-                // $url = explode('/', filter_var($url, FILTER_SANITIZE_URL));
-
-                // // Action corresponding to the controller will be send to the constructor
-                // $this->_ctrl = new $controllerClass($url);
-
             // Make sure that our URL is a URL (Mety hoe tsy azo fa ze fazahonareo azy)
             if (isset($_GET['url']) || isset($_POST['url'])) {
                 if (isset($_GET['url'])) {
@@ -48,11 +33,28 @@ class Router {
                 } elseif (isset($_POST['url'])) {
                     $url = $_POST['url'];
                 }
-        
+
                 $url = explode('/', filter_var($url, FILTER_SANITIZE_URL));
 
                 // Handle the controller file in the request
                 $controller = Ucfirst($url[0]);
+
+                $session_on = (isset($_SESSION['account']));
+                $login_url = ($controller == "Login");
+                $login_url_logout = ($url[1] == "logout");
+
+                if ($session_on) {
+                    if ($login_url && !$login_url_logout) {
+                        $url = SERVER_URL.'?url=home/';
+                        header("location:$url");
+                    }
+                } else {
+                    if (!$login_url) {
+                        $url = SERVER_URL.'?url=login/';
+                        header("location:$url");
+                    }
+                }
+
                 $controllerClass = 'Controller'.$controller;
                 $controllerFile = 'controllers/'.$controllerClass.'.php';
 
@@ -60,9 +62,8 @@ class Router {
                 if (file_exists($controllerFile)) {
                 
                     require_once($controllerFile);
-
                     // Action corresponding to the controller will be send to the constructor
-                    $this->_ctrl = new $controllerClass($url);
+                    $ctrl = new $controllerClass($url);
 
                 } else {
 
@@ -81,13 +82,15 @@ class Router {
         } catch (Exception $e) {
 
             $errorMessage = $e->getMessage(); // Get the error message of the corresponding exception
-            $this->_view = new View('Error');
+            $view = new View('viewError/error');
+            $view->setValue('errorMessage',$errorMessage);
 
-            $data = array(
-                'errorMessage'=>$errorMessage
-            );
+            $view->pageTitle = "Error";
 
-            $this->_view->generate($data);
+            $topNavBar = new View("static/top_navigation");
+            $view->topNavBar = $topNavBar->output();
+
+            $view->render($data);
         }
     }
 

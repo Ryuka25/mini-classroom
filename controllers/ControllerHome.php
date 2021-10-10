@@ -1,6 +1,4 @@
 <?php 
-require_once('views/View.php');
-require_once('models/Account.php');
 
 class ControllerHome {
 
@@ -29,11 +27,16 @@ class ControllerHome {
 
     private function showHomepage() {
 
-        $this->_view = new View('Home');
-        $data = array(
-            'accountID'=>$_SESSION['accountID'],
-        );
-        $this->_view->generate($data);
+        $view = new View('viewHome/home');
+        $view->pageTitle = "Homepage";
+        
+        $topNav = new View('static/topNavBar');
+        $view->topNavBar = $topNav->output();
 
+        /** @var account $account */
+        $account = unserialize($_SESSION['account']);
+        $view->setValue("accountID", $account->getAccountID());
+
+        $view->render();
     }
 }
