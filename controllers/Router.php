@@ -79,15 +79,20 @@ class Router {
         } catch (Exception $e) {
 
             $errorMessage = $e->getMessage(); // Get the error message of the corresponding exception
+            
             $view = new View('viewError/error');
             $view->setValue('errorMessage',$errorMessage);
 
             $view->pageTitle = "Error";
 
-            $topNavBar = new View("static/top_navigation");
-            $view->topNavBar = $topNavBar->output();
+            $topNav = new View('static/topNavBar');
+            if (isset($_SESSION['account'])) {
+                $topNav->setValue('accountID',unserialize($_SESSION['account'])->getAccountID());
+            }
 
-            $view->render($data);
+            $view->topNavBar = $topNav->output();
+
+            $view->render();
         }
     }
 
