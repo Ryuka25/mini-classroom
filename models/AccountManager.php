@@ -15,9 +15,12 @@ class AccountManager extends Manager {
 
         $dataAccount = $query->fetch(PDO::FETCH_ASSOC);
 
-        $result = new Account($dataAccount);
+        if ($dataAccount){
+            $result = new Account($dataAccount);
+            return $result;
+        }
 
-        return $result;
+        return false;
     }
 }
 

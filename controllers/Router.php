@@ -27,7 +27,7 @@ class Router {
             });
 
             // Make sure that our URL is a URL (Mety hoe tsy azo fa ze fazahonareo azy)
-            if (isset($_GET['url']) || isset($_POST['url'])) {
+            if (isset($_GET['url'])) {
                 if (isset($_GET['url'])) {
                     $url = $_GET['url'];
                 } elseif (isset($_POST['url'])) {
@@ -39,19 +39,19 @@ class Router {
                 // Handle the controller file in the request
                 $controller = Ucfirst($url[0]);
 
-                $session_on = (isset($_SESSION['account']));
+                /** Checking session */
                 $login_url = ($controller == "Login");
                 $login_url_logout = ($url[1] == "logout");
 
-                if ($session_on) {
+                if (isset($_SESSION['account'])) {
                     if ($login_url && !$login_url_logout) {
-                        $url = SERVER_URL.'?url=home/';
-                        header("location:$url");
+                        $link = SERVER_URL.'/?url=home/';
+                        header("location:$link");
                     }
                 } else {
-                    if (!$login_url) {
-                        $url = SERVER_URL.'?url=login/';
-                        header("location:$url");
+                    if (!$this->__guestAllowedReq($controller)) {
+                        $link = SERVER_URL.'/?url=login/';
+                        header("location:$link");
                     }
                 }
 
@@ -64,16 +64,13 @@ class Router {
                     require_once($controllerFile);
                     // Action corresponding to the controller will be send to the constructor
                     $ctrl = new $controllerClass($url);
-
                 } else {
-
                     pageNotFound();
-                    
                 }
 
             } else {
-                $url = SERVER_URL.'?url=home/';
-                header("location:$url");
+                $link = SERVER_URL.'/?url=home/';
+                header("location:$link");
             }
             
         // ! IF AN ERROR OCCURED WHILE TRYING TO HANDLE THE REQUESTED URL
@@ -91,6 +88,16 @@ class Router {
             $view->topNavBar = $topNavBar->output();
 
             $view->render($data);
+        }
+    }
+
+    private function __guestAllowedReq($controller) {
+        $guestUrl = ["Login","Home"];
+
+        foreach ($guestUrl as $allowedUrl) {
+            if ($controller == $allowedUrl) {
+                return true;
+            }
         }
     }
 

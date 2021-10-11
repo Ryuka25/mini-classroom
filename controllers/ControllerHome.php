@@ -31,12 +31,11 @@ class ControllerHome {
         $view->pageTitle = "Homepage";
         
         $topNav = new View('static/topNavBar');
+        if (isset($_SESSION['account'])) {
+            $topNav->setValue('accountID',unserialize($_SESSION['account'])->getAccountID());
+        }
         $view->topNavBar = $topNav->output();
-
-        /** @var account $account */
-        $account = unserialize($_SESSION['account']);
-        $view->setValue("accountID", $account->getAccountID());
-
+        
         $view->render();
     }
 }

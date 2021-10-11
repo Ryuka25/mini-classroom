@@ -39,4 +39,8 @@ class Account extends Model {
     public function getAccountID() {
         return $this->accountID;
     }
+
+    public function getType() {
+        return $this->type;
+    }
 }

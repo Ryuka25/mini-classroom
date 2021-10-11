@@ -13,15 +13,18 @@ class ControllerTest {
             $view = new View('viewTest/testPage');
             $view->pageTitle = "Test";
 
-            $navBar = new View("static/topNavBar");
-            $view->topNavBar = $navBar->output();
+            $topNav = new View('static/topNavBar');
+            if (isset($_SESSION['account'])) {
+                $topNav->setValue('accountID',unserialize($_SESSION['account'])->getAccountID());
+            }
+    
+            $view->topNavBar = $topNav->output();
 
             $foo = new testClass("Humm");
             $_SESSION['foo'] = serialize($foo);
 
             $view->render();
 
-            $_SESSION['foo'] = new testClass("Humm");
             var_dump($_SESSION['foo']);
 
         } elseif ($url[1] == 'try') {
