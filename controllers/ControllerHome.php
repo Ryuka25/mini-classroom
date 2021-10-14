@@ -2,9 +2,6 @@
 
 class ControllerHome {
 
-    /** Handle the view for the curent controller */
-    protected $_view;
-
     public function __construct($url) {
         
         if (!empty($url)) {
