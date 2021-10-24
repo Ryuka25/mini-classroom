@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="<?= SERVER_URL.'/views/static/style/style.css'?>">
     <title><?= $pageTitle ?> - Mini-classroom</title>
 </head>
-<body class="bg-dark">
+<body>
 
     <?= $topNavBar ?>
 

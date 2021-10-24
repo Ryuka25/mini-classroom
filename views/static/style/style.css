@@ -1,3 +1,13 @@
+body {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.login-hero {
+    background-image:url('../image/bg-login.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 form.user .form-control-user {
     border-radius: 10rem;
     font-size: .8rem;
